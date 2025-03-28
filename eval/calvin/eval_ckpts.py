@@ -2,8 +2,8 @@ import os
 
 ckpt_paths = [
     (
-        "path/to/VLA-Checkpoint-{epoch}-{steps}.ckpt",
-        "path/to/VLA-Checkpoint-config.json",
+        "weights/kosmos_ph_calvin_abc.pt",
+        "weights/kosmos_ph_calvin_abc.json",
     )
 ]
 

@@ -74,7 +74,7 @@ class CustomModel:
             save_dir = ckpt_dir if save_dir is None else save_dir
             load_info_path = os.path.join(save_dir, f"{ckpt_name}_loading_msg.json")
             if os.path.exists(load_info_path):
-                os.system(f"sudo rm {load_info_path}")
+                os.system(f"rm {load_info_path}")
             with open(load_info_path, "w") as f:
                 _info = {
                     "missing_keys": msg.missing_keys,

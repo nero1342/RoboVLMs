@@ -179,8 +179,8 @@ def get_args():
 
 if __name__ == "__main__":
     CACHE_ROOT = "eval/logs"
-    os.system(f"sudo mkdir -p {CACHE_ROOT}")
-    os.system(f"sudo chmod 777 {CACHE_ROOT}")
+    os.system(f"mkdir -p {CACHE_ROOT}")
+    os.system(f"chmod 777 {CACHE_ROOT}")
 
     from robovlms.utils.config_utils import load_config
 
@@ -245,8 +245,8 @@ if __name__ == "__main__":
         eval_log_dir = ckpt_dir
     else:
         eval_log_dir = os.path.join(CACHE_ROOT, eval_exp_name)
-    os.system(f"sudo mkdir {eval_log_dir}")
-    os.system(f"sudo chmod 777 -R {eval_log_dir}")
+    os.system(f"mkdir {eval_log_dir}")
+    os.system(f"chmod 777 -R {eval_log_dir}")
 
     model = BaseModelInference(
         ckpt_path=ckpt_path,

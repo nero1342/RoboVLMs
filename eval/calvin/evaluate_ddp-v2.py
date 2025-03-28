@@ -19,7 +19,6 @@ from termcolor import colored
 sys.path.insert(0, Path(__file__).absolute().parents[2].as_posix())
 import torch.multiprocessing as mp
 
-os.environ["PYOPENGL_PLATFORM"] = "osmesa"
 import pyrender
 
 from calvin_agent.evaluation.multistep_sequences import get_sequences
@@ -52,8 +51,8 @@ NUM_SEQUENCES = 1000
 # NUM_SEQUENCES = 16
 
 CACHE_ROOT = "eval/logs"
-os.system(f"sudo mkdir -p {CACHE_ROOT}")
-os.system(f"sudo chmod 777 {CACHE_ROOT}")
+os.system(f"mkdir -p {CACHE_ROOT}")
+os.system(f"chmod 777 {CACHE_ROOT}")
 
 
 def make_env(dataset_path):
@@ -78,8 +77,8 @@ def evaluate_policy(
     diverse_inst=False,
 ):
     """Run this function to evaluate a model on the CALVIN challenge."""
-    # conf_dir = Path("path/to/calvin/calvin_models") / "conf"
-    conf_dir = Path("/mnt/bn/robotics/resources/calvin/calvin_models") / "conf"
+    conf_dir = Path("calvin/calvin_models") / "conf"
+    # conf_dir = Path("/mnt/bn/robotics/resources/calvin/calvin_models") / "conf"
     task_cfg = OmegaConf.load(
         conf_dir / "callbacks/rollout/tasks/new_playtable_tasks.yaml"
     )
@@ -458,8 +457,8 @@ def main():
         eval_log_dir = ckpt_dir
     else:
         eval_log_dir = os.path.join(CACHE_ROOT, eval_exp_name)
-    os.system(f"sudo mkdir {eval_log_dir}")
-    os.system(f"sudo chmod 777 -R {eval_log_dir}")
+    os.system(f"mkdir {eval_log_dir}")
+    os.system(f"chmod 777 -R {eval_log_dir}")
 
     args.local_rank, args.rank, args.world_size = world_info_from_env()
     model = CustomModel(
@@ -487,7 +486,7 @@ def main():
 
     if not args.no_cache and args.local_rank == 0:
         if os.path.exists(cache_file):
-            os.system(f"sudo rm {cache_file}")
+            os.system(f"rm {cache_file}")
         with open(cache_file, "w") as f:
             _info = {
                 "eval_sr_path": sr_path,
@@ -516,7 +515,7 @@ def main():
     print_and_save(results, eval_sequences, result_path, None)
 
     if args.no_cache and args.local_rank == 0:
-        os.system("sudo rm -r ./temp/")
+        os.system("rm -r ./temp/")
 
     dist.destroy_process_group()
 
